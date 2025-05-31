@@ -1,0 +1,122 @@
+{
+  "usuarios": [
+    {
+      "id": "dc48",
+      "nome": "Pizza Imaginária",
+      "email": "Nombre",
+      "senha": "",
+      "telefone": ""
+    },
+    {
+      "id": "e35f",
+      "nome": "123",
+      "email": "jack_faleiro@gmail.com",
+      "senha": "123456",
+      "telefone": "123"
+    },
+    {
+      "id": "0ef7",
+      "nome": "",
+      "email": "",
+      "senha": "",
+      "telefone": ""
+    },
+    {
+      "id": "5b64",
+      "nome": "",
+      "email": "",
+      "senha": "",
+      "telefone": ""
+    },
+    {
+      "id": "1ff4",
+      "nome": "",
+      "email": "",
+      "senha": "uiu",
+      "telefone": ""
+    },
+    {
+      "id": "a420",
+      "nome": "Jack",
+      "email": "jack_faleiro@gmail.com",
+      "senha": "12345678",
+      "telefone": "1199991111"
+    },
+    {
+      "id": "6d98",
+      "nome": "Lucas",
+      "email": "lucasylvl2022@gmail.com",
+      "senha": "lucaslucas",
+      "telefone": "11111199999"
+    },
+    {
+      "id": "1689",
+      "nome": "Geovana Lisa",
+      "email": "geovanalisa.jorge@hotmail.com",
+      "senha": "1234567",
+      "telefone": "11947979043"
+    },
+    {
+      "id": "4941",
+      "nome": "Lucas Gama",
+      "email": "lucasmelo_gama@hotmail.com",
+      "senha": "1234",
+      "telefone": "11974910916"
+    },
+    {
+      "id": "6bca",
+      "nome": "Lucas Gama",
+      "email": "lucasmelo_gama@hotmail.com",
+      "senha": "123",
+      "telefone": "11974910916"
+    },
+    {
+      "id": "1f62",
+      "nome": "Lucas Gama",
+      "email": "lucasmelo_gama@hotmail.com",
+      "senha": "1234",
+      "telefone": "11974910916"
+    },
+    {
+      "id": "8f17",
+      "nome": "Lucas Gama",
+      "email": "lucasmelo_gama@hotmail.com",
+      "senha": "1234",
+      "telefone": "11974910916"
+    },
+    {
+      "id": "d40d",
+      "nome": "Lucas Gama",
+      "email": "lucasmelo_gama@hotmail.com",
+      "senha": "123",
+      "telefone": "11974910916"
+    },
+    {
+      "id": "6a66",
+      "nome": "Lucas Gama",
+      "email": "lucasmelo_gama@hotmail.com",
+      "senha": "123456",
+      "telefone": "11974910916"
+    },
+    {
+      "id": "cb67",
+      "nome": "alex",
+      "email": "alexmelo_gama@hotmail.com",
+      "senha": "123",
+      "telefone": "11974910916"
+    }
+  ],
+  "crudMaterial": [
+    {
+      "id": "aff8",
+      "nome": "Lata",
+      "tipoMaterial": "Tipo",
+      "descricao": "Desc",
+      "quantidade": "2",
+      "datacadastro": "2025-05-09",
+      "dataDisponibilidade": "2025-05-09",
+      "codStatus": 1
+    }
+  ],
+  "crudUser": []
+}

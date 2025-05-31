@@ -1,0 +1,165 @@
+
+/* App Container */
+
+.app-container_login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px); /* Ex: 60px header + 60px footer */
+  padding: 40px 20px;
+  margin-top: 60px;  /* Espaço para o header */
+  margin-bottom: 60px; /* Espaço para o footer */
+  background-color: #f4f4f9;
+  box-sizing: border-box;
+}
+  .main-content_login {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .main-content_login p {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Estilo do Formulário */
+  .login  {
+    border: solid black;
+    width: 100%;
+    max-width: 400px;
+    padding: 0px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  /* Título do Formulário */
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  /* Caixa de entrada de texto */
+  .input-box {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .input-box input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #008000;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .input-box input:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  /* Ícones dentro das caixas de entrada */
+  .input-box i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #aaa;
+  }
+  
+  /* Link para "Esqueceu sua senha?" */
+  .remember-forgot {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .remember-forgot a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  .remember-forgot a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Botão de Login */
+  .btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Checkbox Lembre-me */
+  label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  label input {
+    margin-right: 8px;
+  }
+  
+  /* Link para "Cadastre-se" */
+  .register-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .register-link a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  .register-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 480px) {
+    .app-container_login {
+      padding: 10px;
+    }
+  
+    form {
+      padding: 20px;
+      width: 100%;
+      max-width: 320px;
+    }
+  
+    h1 {
+      font-size: px;
+    }
+  
+    .input-box input {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+  
+    .btn {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    
+  }
+
+  
