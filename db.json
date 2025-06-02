@@ -104,6 +104,34 @@
       "email": "alexmelo_gama@hotmail.com",
       "senha": "123",
       "telefone": "11974910916"
+    },
+    {
+      "id": "a8fc",
+      "nome": "Lucas",
+      "email": "lucasmelo_gama@hotmail.com",
+      "senha": "123",
+      "telefone": "11974910916"
+    },
+    {
+      "id": "4619",
+      "nome": "lucas",
+      "email": "lucasmelo_gama@hotmail.com",
+      "senha": "123",
+      "telefone": "14253254"
+    },
+    {
+      "id": "efb5",
+      "nome": "hjkhjk",
+      "email": "LUCASMELO_GAMA@HOTMAIL.COM",
+      "senha": "123",
+      "telefone": "lkjl,kj"
+    },
+    {
+      "id": "8d1d",
+      "nome": "oii",
+      "email": "nathallya908@hotmail.com",
+      "senha": "1725425",
+      "telefone": "353563"
     }
   ],
   "crudMaterial": [

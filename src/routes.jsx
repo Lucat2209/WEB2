@@ -22,7 +22,8 @@ function RoutesApp() {
                     <Route path="/usuario" element={<Usuario />} />
                     <Route path="/rodape" element={<Rodape />} />
                     <Route path="/agendamento" element={<Agendamento />} />
-                    <Route path="/agendamento" element={<Agendamento />} />
+                    <Route path="/login" element={<Login />} />
+    
                 </Route>
             </Routes>
         </BrowserRouter>

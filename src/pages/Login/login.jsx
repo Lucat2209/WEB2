@@ -40,7 +40,7 @@ const Login = () => {
     };
 
     return (
-        <div className="app-container_login">
+        <div >
             <form onSubmit={handleSubmit}>
                 <h1>Login</h1>
 

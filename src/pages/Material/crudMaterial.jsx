@@ -7,8 +7,6 @@ const Material = () => {
     const [vtipo, setTipo] = useState('');
     const [vdesc, setDesc] = useState('');
     const [vquant, setQuant] = useState('');
-    const [vdatacadastro, setDatacadastro] = useState('');
-    const [vdatadi, setDatadi] = useState('');
 
     // Carrega os materiais cadastrados ao montar o componente
     useEffect(() => {
@@ -25,7 +23,7 @@ const Material = () => {
         e.preventDefault();
         try {
             const response = await api.post("http://localhost:8080/api/v1/admin/material", {
-            //const response = await api.post("http://localhost:3001/crudMaterial", {
+                //const response = await api.post("http://localhost:3001/crudMaterial", {
                 nome: vnome,
                 tipoMaterial: vtipo,
                 descricao: vdesc,
@@ -44,34 +42,40 @@ const Material = () => {
     }
 
     return (
-        <div className="app-container">
+
+
+        <div>
             <div className="main-content">
                 <p>Cadastro de Material</p>
             </div>
 
-            <form onSubmit={handleSubmit}>
-                <label>Nome</label>
-                <input type="text" placeholder="Nome" onChange={(e) => setNome(e.target.value)} value={vnome} />
+            <div className="material">
 
-                <label>Tipo</label>
-                <input type="text" placeholder="Tipo" onChange={(e) => setTipo(e.target.value)} value={vtipo} />
+                <form onSubmit={handleSubmit}>
+                    <div className="input-box">
+                        <label>Nome</label>
+                        <input type="text" placeholder="Nome" onChange={(e) => setNome(e.target.value)} value={vnome} />
+                    </div>
 
-                <label>Descrição</label>
-                <input type="text" placeholder="Descrição" onChange={(e) => setDesc(e.target.value)} value={vdesc} />
+                    <div className="input-box">
+                        <label>Tipo</label>
+                        <input type="text" placeholder="Tipo" onChange={(e) => setTipo(e.target.value)} value={vtipo} />
+                    </div>
+                    <div className="input-box">
+                        <label>Descrição</label>
+                        <input type="text" placeholder="Descrição" onChange={(e) => setDesc(e.target.value)} value={vdesc} />
+                    </div>
+                    <div className="input-box">
+                        <label>Quantidade</label>
+                        <input type="number" placeholder="Quantidade" onChange={(e) => setQuant(e.target.value)} value={vquant} />
+                    </div>
 
-                <label>Quantidade</label>
-                <input type="number" placeholder="Quantidade" onChange={(e) => setQuant(e.target.value)} value={vquant} />
+                    <div className="form-group">
+                        <button type="submit">Cadastrar Material</button>
+                    </div>
+                </form>
 
-                <label>Data de cadastro</label>
-                <input type="date" placeholder="Data de cadastro" onChange={(e) => setDatacadastro(e.target.value)} value={vdatacadastro} />
-
-                <label>Data de disponibilidade</label>
-                <input type="date" placeholder="Data de disponibilidade" onChange={(e) => setDatadi(e.target.value)} value={vdatadi} />
-
-                <div className="form-group">
-                    <button type="submit">Cadastrar Material</button>
-                </div>
-            </form>
+            </div>
 
             <div className="main-content">
                 <p>Material Cadastrado</p>

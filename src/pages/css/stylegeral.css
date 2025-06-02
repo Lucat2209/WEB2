@@ -41,12 +41,14 @@
     font-size: 24px;
     color: #333;
     margin-bottom: 30px;
+   
   }
   
   /* Caixa de entrada de texto */
   .input-box {
     position: relative;
     margin-bottom: 20px;
+  
   }
   
   .input-box input {
@@ -93,8 +95,8 @@
     width: 100%;
     padding: 12px;
     font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #2cc746;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -109,13 +111,15 @@
   label {
     display: flex;
     align-items: center;
-    font-size: 14px;
-    color: #555;
+    font-size: 20px;
+    color: #003512;
     margin-top: 10px;
+    font-weight: 800;
   }
   
   label input {
     margin-right: 8px;
+    
   }
   
   /* Link para "Cadastre-se" */
@@ -140,26 +144,34 @@
     }
   
     form {
-      padding: 20px;
-      width: 100%;
-      max-width: 320px;
+       margin: 0 auto;  /* margem automática nos lados */
+       width: 300px;    /* ou outra largura fixa */
+      
+      
     }
   
     h1 {
-      font-size: px;
+      font-size: 40px;
     }
   
     .input-box input {
       padding: 10px 12px;
       font-size: 14px;
+      
+    
     }
   
     .btn {
       padding: 10px;
       font-size: 14px;
+    
     }
+
+    
+    
 
     
   }
 
+  
   

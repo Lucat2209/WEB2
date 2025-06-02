@@ -1,4 +1,8 @@
 /* Header */
+
+* {
+  font-family: Helvetica, Arial, sans-serif;  
+}
 header {
   font-family: Helvetica, Arial, sans-serif;  
   display: flex;
@@ -42,34 +46,19 @@ img {
 
 /* Estilo do conteúdo principal */
 .main-content {
-  text-align: center;
+  text-align: center ;
   margin-top: 30px;
   font-size: 28px;
   font-weight: bold;
-  color: #2E8B57; /* Verde escuro */
+  color: #2E8B57;
+  
+   /* Verde escuro */
 }
+
 
 /* Tela de login (fundo e container do login) */
 /* Tela de login (fundo e container do login) */
-.app-container_login {
-  max-width: 800px;             /* Deixa o container um pouco maior */
-  margin: 60px auto 40px;
-  padding: 40px 30px;           /* Mais padding para respirar */
-  
-  background-color: rgba(15, 104, 182, 0.9); /* Fundo clarinho com leve tom azul (AliceBlue) */
-  border-radius: 16px;
-  
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
-  
-  backdrop-filter: saturate(180%) blur(10px);
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-  
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  
-  transition: all 0.4s ease;
-}
+
 .login input {
   width: 90%;
   padding: 14px 16px;
@@ -78,6 +67,7 @@ img {
   border-radius: 10px;
   border: 1px solid #18bd20;
   transition: border-color 0.3s ease;
+  
 }
 
 .login input:focus {
@@ -93,7 +83,7 @@ img {
   font-weight: 600;
   border-radius: 12px;
   border: none;
-  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+  background-color: #008000;
   color: white;
   cursor: pointer;
   
@@ -121,21 +111,24 @@ img {
 
 /* Formulário de login */
 form {
-  background: #ffffff; /* Fundo branco sólido */
+  background: #2bbb18;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  width: 100%;          /* ocupa 90% da largura da tela */
+  max-width: 1000px;    /* mas não ultrapassa 700px */
+  margin: 0 auto;
   position: relative;
   z-index: 1;
   transition: all 0.3s ease-in-out;
+  
 }
 
 /* Caixa de entrada para o email */
 .input-box {
   position: relative;
-  margin-bottom: 20px;
+  text-align: center;
+  
 }
 
 .input-box input {
@@ -149,6 +142,7 @@ form {
 
 .input-box input::placeholder {
   color: #aaaaaa;
+  
 }
 
 .bx {
@@ -178,7 +172,7 @@ form {
 /* Botão de login */
 button {
   padding: 10px;
-  background-color: #2E8B57;
+  background-color: #f3f3f3;
   color: white;
   border: none;
   border-radius: 5px;
@@ -195,10 +189,11 @@ button:hover {
 .remember-forgot {
   text-align: center;
   margin-top: 10px;
+  
 }
 
 .remember-forgot a {
-  color: #2E8B57;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -208,8 +203,7 @@ button:hover {
 
 /* Lembre-me */
 label {
-  display: inline-block;
-  margin-top: 10px;
+  text-align: center;
 }
 
 /* Link de registro */
@@ -237,6 +231,8 @@ label {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 40px;
+  
+  
 }
 
 /* Estilo para o container de cadastro */
@@ -246,6 +242,9 @@ label {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  
+  
+
 }
 
 /* Estilo para o container de consulta */
@@ -255,11 +254,13 @@ label {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex-grow: 2;
+  
+  
 }
 
 button {
   padding: 10px;
-  background-color: #2E8B57;
+  background-color: #000000;
   color: white;
   border: none;
   border-radius: 5px;
@@ -290,6 +291,7 @@ ul li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 /* src/pages/Agendamento.css */
@@ -303,7 +305,7 @@ ul li {
   background-color: #fff;
   border: none; /* sem borda */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', sans-serif;
+  
 }
 .container-agendamento h2 {
   text-align: center;
@@ -360,4 +362,8 @@ ul li {
 
 .container-agendamento button:hover {
   background-color: #c0392b;
+}
+
+.material form {
+  background-color: rgb(233, 255, 240);
 }
