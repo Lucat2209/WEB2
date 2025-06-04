@@ -2,87 +2,222 @@ import React, { useState, useEffect } from "react";
 import api from "../../services/api";
 import '../css/stylegeral.css';
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // ✅ IMPORTADO AQUI
+import { useNavigate } from "react-router-dom";
 
 const Usuario = () => {
-    const [vusuarios, setUsuarios] = useState([]);
-    const [vnome, setNome] = useState('');
-    const [vemail, setEmail] = useState('');
-    const [vsenha, setSenha] = useState('');
-    const [vtelefone, setTelefone] = useState('');
+  const [vusuarios, setUsuarios] = useState([]);
+  const [vnome, setNome] = useState('');
+  const [vemail, setEmail] = useState('');
+  const [vsenha, setSenha] = useState('');
+  const [vconfirmarSenha, setConfirmarSenha] = useState('');
+  const [vtelefone, setTelefone] = useState('');
+  const [erroSenha, setErroSenha] = useState(false);
 
-    const navigate = useNavigate(); // ✅ INSTANCIADO AQUI
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        fetchUsuarios();
-    }, []);
+  useEffect(() => {
+    fetchUsuarios();
+  }, []);
 
-    const fetchUsuarios = async () => {
-        try {
-            const res = await axios.get("http://localhost:3001/usuarios");
-            setUsuarios(res.data);
-        } catch (err) {
-            console.error("Erro ao buscar usuários", err);
-        }
-    };
+  const fetchUsuarios = async () => {
+    try {
+      const res = await axios.get("http://localhost:3001/usuarios");
+      setUsuarios(res.data);
+    } catch (err) {
+      console.error("Erro ao buscar usuários", err);
+    }
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  // Validações da senha
+  const validaSenha = {
+    temTamanho: vsenha.length >= 6,
+    temMaiuscula: /[A-Z]/.test(vsenha),
+    temNumero: /\d/.test(vsenha),
+    temEspecial: /[@]/.test(vsenha) // só o @
+  };
 
-        if (!vnome || !vemail || !vsenha || !vtelefone) {
-            alert("Preencha todos os campos.");
-            return;
-        }
+  // Atualiza o erro da confirmação em tempo real
+  useEffect(() => {
+    setErroSenha(vconfirmarSenha !== "" && vsenha !== vconfirmarSenha);
+  }, [vsenha, vconfirmarSenha]);
 
-        try {
-            await api.post("http://localhost:3001/usuarios", {
-                nome: vnome,
-                email: vemail,
-                senha: vsenha,
-                telefone: vtelefone
-            });
+  // Máscara de telefone (formato brasileiro)
+  const formatarTelefone = (valor) => {
+    const apenasDigitos = valor.replace(/\D/g, "");
+    if (apenasDigitos.length <= 10) {
+      return apenasDigitos.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3").trim();
+    } else {
+      return apenasDigitos.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3").trim();
+    }
+  };
 
-            // Limpa os campos
-            setNome('');
-            setEmail('');
-            setSenha('');
-            setTelefone('');
+  const handleTelefoneChange = (e) => {
+    const valorFormatado = formatarTelefone(e.target.value);
+    setTelefone(valorFormatado);
+  };
 
-            // Redireciona para a página de login
-            navigate("/login"); // ✅ AQUI O REDIRECIONAMENTO
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    if (!vnome || !vemail || !vsenha || !vconfirmarSenha) {
+      alert("Preencha todos os campos obrigatórios: Nome, E-mail, Senha e Confirmar Senha.");
+      return;
+    }
 
-    return (
-        <div className="app-container_login">
-            <form className="login" onSubmit={handleSubmit}>
-                <h1>Cadastro de Usuário</h1>
-                <label>Nome</label>
-                <input type="text" placeholder="Nome" value={vnome} onChange={(e) => setNome(e.target.value)} />
-                <label>Email</label>
-                <input type="email" placeholder="E-mail" value={vemail} onChange={(e) => setEmail(e.target.value)} />
-                <label>Senha</label>
-                <input type="password" placeholder="Senha" value={vsenha} onChange={(e) => setSenha(e.target.value)} />
-                <label>Telefone</label>
-                <input type="text" placeholder="Telefone" value={vtelefone} onChange={(e) => setTelefone(e.target.value)}/>
-<br />
-<br />
-<button type="submit">Cadastrar Usuário</button>
+    if (vsenha !== vconfirmarSenha) {
+      setErroSenha(true);
+      alert("As senhas não coincidem.");
+      return;
+    }
 
-                <ul>
-                    {vusuarios.map(user => (
-                        <li key={user.id}>{user.nome} - {user.email}</li>
-                    ))}
-                </ul>
-            </form>
-        </div>
-    );
+    if (!validaSenha.temTamanho || !validaSenha.temMaiuscula || !validaSenha.temNumero || !validaSenha.temEspecial) {
+      alert("A senha não atende a todos os requisitos.");
+      return;
+    }
+
+    // Verifica se o e-mail já está cadastrado
+    const emailExiste = vusuarios.some(usuario => usuario.email.toLowerCase() === vemail.toLowerCase());
+    if (emailExiste) {
+      alert("Este e-mail já está cadastrado. Por favor, use outro e-mail.");
+      return;
+    }
+
+    try {
+      await api.post("http://localhost:3001/usuarios", {
+        nome: vnome,
+        email: vemail,
+        senha: vsenha,
+        telefone: vtelefone
+      });
+
+      setNome('');
+      setEmail('');
+      setSenha('');
+      setConfirmarSenha('');
+      setTelefone('');
+
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div className="app-container_login">
+      <form className="login" onSubmit={handleSubmit}>
+        <h1>Cadastro de Usuário</h1>
+
+        <label>Nome*</label>
+        <input
+          type="text"
+          placeholder="Nome"
+          value={vnome}
+          onChange={(e) => setNome(e.target.value)}
+          required
+        />
+
+        <label>Email*</label>
+        <input
+          type="email"
+          placeholder="E-mail"
+          value={vemail}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <label>Senha*</label>
+        <input
+          type="password"
+          placeholder="Senha"
+          value={vsenha}
+          onChange={(e) => setSenha(e.target.value)}
+          required
+        />
+
+        {/* Validação da senha (aparece só enquanto usuário digita) */}
+        {vsenha.length > 0 && (
+          <div className="senha-requisitos">
+            <p><strong>A senha deve conter:</strong></p>
+            <ul>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span
+                  className="icone"
+                  style={{ color: validaSenha.temTamanho ? "green" : "red", minWidth: '20px' }}
+                >
+                  {validaSenha.temTamanho ? "✔" : "✘"}
+                </span>
+                <span>Pelo menos 6 caracteres</span>
+              </li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span
+                  className="icone"
+                  style={{ color: validaSenha.temMaiuscula ? "green" : "red", minWidth: '20px' }}
+                >
+                  {validaSenha.temMaiuscula ? "✔" : "✘"}
+                </span>
+                <span>Uma letra maiúscula</span>
+              </li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span
+                  className="icone"
+                  style={{ color: validaSenha.temNumero ? "green" : "red", minWidth: '20px' }}
+                >
+                  {validaSenha.temNumero ? "✔" : "✘"}
+                </span>
+                <span>Um número</span>
+              </li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span
+                  className="icone"
+                  style={{ color: validaSenha.temEspecial ? "green" : "red", minWidth: '20px' }}
+                >
+                  {validaSenha.temEspecial ? "✔" : "✘"}
+                </span>
+                <span>O caractere especial @</span>
+              </li>
+            </ul>
+          </div>
+        )}
+
+        <label>Confirmar Senha*</label>
+        <input
+          type="password"
+          placeholder="Confirmar Senha"
+          value={vconfirmarSenha}
+          onChange={(e) => setConfirmarSenha(e.target.value)}
+          required
+          className={erroSenha ? "input-error" : ""}
+        />
+        {erroSenha && (
+          <p className="error-message">As senhas não coincidem.</p>
+        )}
+
+        <label>Telefone (opcional)</label>
+        <input
+          type="text"
+          placeholder="Telefone"
+          value={vtelefone}
+          onChange={handleTelefoneChange}
+          maxLength={15}
+        />
+
+        <br /><br />
+        <button type="submit">Cadastrar Usuário</button>
+
+        <ul>
+          {vusuarios.map(user => (
+            <li key={user.id}>{user.nome} - {user.email}</li>
+          ))}
+        </ul>
+      </form>
+    </div>
+  );
 };
 
 export default Usuario;
+
+
+
 
 
 

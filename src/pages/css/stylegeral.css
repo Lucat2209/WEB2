@@ -3,18 +3,19 @@
 
 .app-container_login {
   display: flex;
-  justify-content: center;
+  text-align: center;
   align-items: center;
   min-height: calc(100vh - 120px); /* Ex: 60px header + 60px footer */
   padding: 40px 20px;
   margin-top: 60px;  /* Espaço para o header */
   margin-bottom: 60px; /* Espaço para o footer */
-  background-color: #f4f4f9;
+  background-color: #ffffff;
   box-sizing: border-box;
 }
   .main-content_login {
     text-align: center;
     margin-bottom: 20px;
+    
   }
   
   .main-content_login p {
@@ -27,9 +28,9 @@
   .login  {
     border: solid black;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
     padding: 0px;
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     
@@ -48,17 +49,32 @@
   .input-box {
     position: relative;
     margin-bottom: 20px;
+    
+
   
   }
   
   .input-box input {
-    width: 100%;
+    width: 50%;
     padding: 12px 15px;
     font-size: 16px;
-    border: 1px solid #008000;
-    border-radius: 5px;
+    border: 2px solid #008000;
+    border-radius: 10px;
     background-color: #f9f9f9;
+    
+
   }
+
+ 
+ .quantidade-wrapper input {
+  flex: 1;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #008000;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  
+}
   
   .input-box input:focus {
     border-color: #4CAF50;
@@ -91,21 +107,25 @@
   }
   
   /* Botão de Login */
-  .btn {
-    width: 100%;
+  button {
+    width: 50%;
     padding: 12px;
-    font-size: 16px;
+    font-size: 20px;
     background-color: #2cc746;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    align-items: center;
+    
   }
   
-  .btn:hover {
-    background-color: #45a049;
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+  
   
   /* Checkbox Lembre-me */
   label {
@@ -115,6 +135,8 @@
     color: #003512;
     margin-top: 10px;
     font-weight: 800;
+    text-align: center;
+    
   }
   
   label input {
@@ -154,12 +176,7 @@
       font-size: 40px;
     }
   
-    .input-box input {
-      padding: 10px 12px;
-      font-size: 14px;
-      
     
-    }
   
     .btn {
       padding: 10px;
@@ -167,10 +184,6 @@
     
     }
 
-    
-    
-
-    
   }
 
   

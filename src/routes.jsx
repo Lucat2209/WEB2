@@ -9,6 +9,7 @@ import Material from "./pages/Material/crudMaterial";
 import Usuario from "./pages/Usuario/usuario";
 import Rodape from "./pages/Rodape/rodape";
 import Agendamento from "./pages/Agendamento/agendamento";
+import ForgotPassword from "./pages/Senha/senha";
 
 function RoutesApp() {
     return (
@@ -23,6 +24,7 @@ function RoutesApp() {
                     <Route path="/rodape" element={<Rodape />} />
                     <Route path="/agendamento" element={<Agendamento />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
     
                 </Route>
             </Routes>
