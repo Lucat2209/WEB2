@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
   // Adicionando o Outlet
   
-import Categoria from './pages/Categoria/crudCategoria';
+import Categoria from './pages/Categoria/categoria';
 import Header from './pages/Header/header';
 import Home from './pages/Home/home';
 import Login from './pages/Login/login';
@@ -18,7 +18,7 @@ function RoutesApp() {
                 <Route path="/" element={<Login />} />
                 <Route element={<Layout />}>
                     <Route path="/home" element={<Home />} />
-                    <Route path="/crudCategoria" element={<Categoria />} />
+                    <Route path="/categoria" element={<Categoria />} />
                     <Route path="/crudMaterial" element={<Material />} />
                     <Route path="/usuario" element={<Usuario />} />
                     <Route path="/rodape" element={<Rodape />} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "axios";
+import axios from "axios";
 
 const Material = () => {
   const [vcrudMaterial, setCrudMaterial] = useState([]);
@@ -7,30 +7,50 @@ const Material = () => {
   const [vcategoria, setCategoria] = useState('');
   const [vtipo, setTipo] = useState('');
   const [vdesc, setDesc] = useState('');
+  const [editingId, setEditingId] = useState(null);
 
-  // Estados de erro individual para cada campo
+  const [categorias, setCategorias] = useState([]);
+
   const [erroNome, setErroNome] = useState('');
   const [erroCategoria, setErroCategoria] = useState('');
   const [erroTipo, setErroTipo] = useState('');
 
   useEffect(() => {
-    api.get("http://localhost:8080/api/v1/admin/material")
-      .then((res) => {
-        setCrudMaterial(res.data);
-        console.log(res.data);
-      })
-      .catch(err => console.error("Erro ao buscar Material", err));
+    fetchMateriais();
+    fetchCategorias();
   }, []);
+
+  const fetchMateriais = () => {
+    axios.get("http://localhost:8080/api/v1/admin/material")
+      .then(res => setCrudMaterial(res.data))
+      .catch(err => console.error("Erro ao buscar materiais", err));
+  };
+
+  const fetchCategorias = () => {
+    axios.get("http://localhost:8080/api/v1/admin/categoria")
+      .then(res => setCategorias(res.data))
+      .catch(err => console.error("Erro ao buscar categorias", err));
+  };
+
+  const resetForm = () => {
+    setNome('');
+    setCategoria('');
+    setTipo('');
+    setDesc('');
+    setEditingId(null);
+
+    setErroNome('');
+    setErroCategoria('');
+    setErroTipo('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Resetar erros
     setErroNome('');
     setErroCategoria('');
     setErroTipo('');
 
-    // Validar campos individualmente
     let valid = true;
     if (!vnome.trim()) {
       setErroNome('O campo Nome é obrigatório.');
@@ -44,222 +64,152 @@ const Material = () => {
       setErroTipo('O campo Tipo é obrigatório.');
       valid = false;
     }
+    if (!valid) return;
 
-    if (!valid) return; // para o envio se tiver erro
+    const materialData = {
+      nome: vnome,
+      tipoMaterial: vtipo,
+      descricao: vdesc,
+      categoria: { id: parseInt(vcategoria) },
+      codStatus: 1
+    };
 
     try {
-      const response = await api.post("http://localhost:8080/api/v1/admin/material", {
-        nome: vnome,
-        tipoMaterial: vtipo,
-        descricao: vdesc,
-        categoria: vcategoria,
-        codStatus: 1
-      });
-
-      setCrudMaterial(prevMaterials => [...prevMaterials, response.data]);
-
-      // Limpar campos após cadastro
-      setNome('');
-      setCategoria('');
-      setTipo('');
-      setDesc('');
+      if (editingId) {
+        // Atualizar material
+        await axios.put(`http://localhost:8080/api/v1/admin/material/${editingId}`, materialData);
+        fetchMateriais();
+        resetForm();
+      } else {
+        // Criar novo material
+        const response = await axios.post("http://localhost:8080/api/v1/admin/material", materialData);
+        setCrudMaterial(prev => [...prev, response.data]);
+        resetForm();
+      }
     } catch (error) {
-      console.log(error);
-      // Poderia colocar aqui mensagem geral de erro se quiser
+      console.error("Erro ao salvar material:", error);
+      alert("Erro ao salvar material.");
     }
-  }
+  };
+
+  const handleEdit = (mat) => {
+    setNome(mat.nome);
+    setCategoria(mat.categoria?.id ? String(mat.categoria.id) : String(mat.categoria));
+    setTipo(mat.tipoMaterial);
+    setDesc(mat.descricao || '');
+    setEditingId(mat.id);
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Deseja realmente excluir este material?")) {
+      try {
+        await axios.delete(`http://localhost:8080/api/v1/admin/material/${id}`);
+        setCrudMaterial(prev => prev.filter(m => m.id !== id));
+      } catch (error) {
+        console.error("Erro ao excluir material:", error);
+        alert("Erro ao excluir material.");
+      }
+    }
+  };
+
+  // Função para pegar nome da categoria pelo id
+  const getNomeCategoria = (categoria) => {
+    if (!categoria) return "";
+    if (typeof categoria === "object" && categoria.nome) return categoria.nome;
+    // Se só veio id
+    const catObj = categorias.find(c => c.id === (categoria.id || categoria));
+    return catObj ? catObj.nome : categoria;
+  };
 
   return (
-    <div>
+    <div className="material-container">
       <div className="main-content">
-        <p>Cadastro de Material</p>
+        <h2>{editingId ? "Editar Material" : "Cadastro de Material"}</h2>
       </div>
 
-      <div className="material">
-        <form onSubmit={handleSubmit}>
-          <div className="input-box">
-            <label>Nome</label>
-            <select
-              onChange={(e) => setNome(e.target.value)}
-              value={vnome}
-              className="select-material"
+      <form onSubmit={handleSubmit} className="material-form">
+        <div className="input-box">
+          <label>Nome</label>
+          <input
+            type="text"
+            value={vnome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+          {erroNome && <p style={{ color: 'red' }}>{erroNome}</p>}
+        </div>
+
+        <div className="input-box">
+          <label>Categoria</label>
+          <select
+            value={vcategoria}
+            onChange={(e) => setCategoria(e.target.value)}
+            style={{
+              padding: '8px',
+              border: '1px solid #ccc',
+              borderRadius: '4px'
+            }}
+          >
+            <option value="">Selecione uma categoria</option>
+            {categorias.map(cat => (
+              <option key={cat.id} value={cat.id}>{cat.nome}</option>
+            ))}
+          </select>
+          {erroCategoria && <p style={{ color: 'red' }}>{erroCategoria}</p>}
+        </div>
+
+        <div className="input-box">
+          <label>Tipo</label>
+          <input
+            type="text"
+            value={vtipo}
+            onChange={(e) => setTipo(e.target.value)}
+          />
+          {erroTipo && <p style={{ color: 'red' }}>{erroTipo}</p>}
+        </div>
+
+        <div className="input-box">
+          <label>Descrição</label>
+          <input
+            type="text"
+            value={vdesc}
+            onChange={(e) => setDesc(e.target.value)}
+          />
+        </div>
+
+        <div className="button" style={{ marginTop: '10px' }}>
+          <button type="submit">{editingId ? "Atualizar Material" : "Cadastrar Material"}</button>
+          {editingId && (
+            <button
+              type="button"
+              onClick={resetForm}
+              style={{ marginLeft: '10px', backgroundColor: '#ccc' }}
             >
-              <option value="">Selecione um material</option>
-              <option value="Óleo de cozinha">Óleo de cozinha</option>
-              <option value="Tampa de plástico">Tampa de plástico</option>
-              <option value="Garrafa pet">Garrafa pet</option>
-              <option value="Lata de Alumínio">Lata de Alumínio</option>
-            </select>
-            {erroNome && <p style={{ color: 'red', marginTop: '5px' }}>{erroNome}</p>}
-          </div>
+              Cancelar
+            </button>
+          )}
+        </div>
+      </form>
 
-          <div className="input-box">
-            <label>Categoria</label>
-            <select
-              onChange={(e) => setCategoria(e.target.value)}
-              value={vcategoria}
-              className="select-categoria"
-            >
-              <option value="">Selecione uma categoria</option>
-              <option value="Recicláveis">Recicláveis</option>
-              <option value="Resíduos">Resíduos</option>
-            </select>
-            {erroCategoria && <p style={{ color: 'red', marginTop: '5px' }}>{erroCategoria}</p>}
-          </div>
-
-          <div className="input-box">
-            <label>Tipo</label>
-            <input
-              type="text"
-              placeholder="Tipo"
-              onChange={(e) => setTipo(e.target.value)}
-              value={vtipo}
-            />
-            {erroTipo && <p style={{ color: 'red', marginTop: '5px' }}>{erroTipo}</p>}
-          </div>
-
-          <div className="input-box">
-            <label>Descrição</label>
-            <input
-              type="text"
-              placeholder="Descrição"
-              onChange={(e) => setDesc(e.target.value)}
-              value={vdesc}
-            />
-          </div>
-
-          <div className="button">
-            <button type="submit">Cadastrar Material</button>
-          </div>
-        </form>
-      </div>
-
-      <div className="main-content">
-        <p>Material Cadastrado</p>
+      <div className="main-content" style={{ marginTop: '30px' }}>
+        <h2>Materiais Cadastrados</h2>
       </div>
 
       <ul>
         {vcrudMaterial.map(mat => (
-          <li key={mat.id}>
-            Nome = {mat.nome} | Descrição = {mat.descricao} | Tipo Material = {mat.tipoMaterial} | Quantidade = {mat.quantidade} | Categoria = {mat.categoria}
+          <li key={mat.id} style={{ marginBottom: '10px' }}>
+            <strong>{mat.nome}</strong> | Tipo: {mat.tipoMaterial} | Descrição: {mat.descricao} | Categoria: {getNomeCategoria(mat.categoria)}
+            <button className="buttonEdicaoDelete" onClick={() => handleEdit(mat)} style={{ marginLeft: '15px' }}>Editar</button>
+            <button className="buttonEdicaoDelete"
+              onClick={() => handleDelete(mat.id)}
+              style={{ marginLeft: '10px', color: 'red' }}
+            >
+              Excluir
+            </button>
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default Material;
-
-
-
-/*import React, { useState, useEffect } from "react";
-import api from "axios";
-
-const Material = () => {
-    const [vcrudMaterial, setCrudMaterial] = useState([]);
-    const [vnome, setNome] = useState('');
-    const [vtipo, setTipo] = useState('');
-    const [vdesc, setDesc] = useState('');
-    const [vquant, setQuant] = useState('');
-
-    // Carrega os materiais cadastrados ao montar o componente
-    useEffect(() => {
-        api.get("http://localhost:8080/api/v1/admin/material")
-            .then((res) => {
-                setCrudMaterial(res.data);
-                console.log(res.data);
-            })
-            .catch(err => console.error("Erro ao buscar Material", err));
-    }, []);
-
-    // Função para enviar o novo material
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await api.post("http://localhost:8080/api/v1/admin/material", {
-                //const response = await api.post("http://localhost:3001/crudMaterial", {
-                nome: vnome,
-                tipoMaterial: vtipo,
-                descricao: vdesc,
-                quantidade: vquant,
-                codStatus: 1
-
-            });
-            console.log(response.data);
-            // Após cadastrar o material, você pode adicionar à lista sem precisar recarregar
-            setCrudMaterial(prevMaterials => [...prevMaterials, response.data]);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    return (
-
-
-        <div>
-            <div className="main-content">
-                <p>Cadastro de Material</p>
-            </div>
-
-            <div className="material">
-
-                <form onSubmit={handleSubmit}>
-                    <div className="input-box">
-                        <label>Nome</label>
-                        <input type="text" placeholder="Nome" onChange={(e) => setNome(e.target.value)} value={vnome} />
-                    </div>
-
-                    <div className="input-box">
-                        <label>Tipo</label>
-                        <input type="text" placeholder="Tipo" onChange={(e) => setTipo(e.target.value)} value={vtipo} />
-                    </div>
-                    <div className="input-box">
-                        <label>Descrição</label>
-                        <input type="text" placeholder="Descrição" onChange={(e) => setDesc(e.target.value)} value={vdesc} />
-                    </div>
-                    <div className="input-box">
-                        <label>Quantidade</label>
-                        <input type="number" placeholder="Quantidade" onChange={(e) => setQuant(e.target.value)} value={vquant} />
-                    </div>
-
-                    <div className="button">
-                        <button type="submit">Cadastrar Material</button>
-                    </div>
-                </form>
-
-            </div>
-
-            <div className="main-content">
-                <p>Material Cadastrado</p>
-            </div>
-
-            <ul>
-                {vcrudMaterial.map(mat => (
-                    <li key={mat.id}> Nome = {mat.nome}| Descrição = {mat.descricao}| Tipo Material = {mat.tipoMaterial}</li>
-                ))}
-            </ul>
-        </div>
-    );
-}
-
-export default Material; 
-
- <div className="input-box-quantidade">
-                        <label>Quantidade</label>
-                        <div style={{ display: 'flex', gap: '10px' }}>
-                            <input
-                                type="number"
-                                placeholder="Quantidade"
-                                onChange={(e) => setQuant(e.target.value)}
-                                value={vquant}
-                            />
-                            <select onChange={(e) => setUnidade(e.target.value)} value={vunidade}>
-                                <option value="kg">Kg</option>
-                                <option value="L">Litros</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-*/

@@ -13,7 +13,7 @@ function Header(){
             <nav>
                 <a href='/home' className='abas'>Gerenciar</a>
                 <span className='separador'>|</span> 
-                <a href='/crudCategoria' className='abas'>Categoria</a>
+                <a href='/categoria' className='abas'>Categoria</a>
                 <span className='separador'>|</span> 
                 <a href='/crudMaterial' className='abas'>Material</a>
                 <span className='separador'>|</span> 

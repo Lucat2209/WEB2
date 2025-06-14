@@ -5,34 +5,71 @@ import '../css/stylegeral.css';
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setSenha] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  function getPayloadFromToken(token) {
+    if (!token) return null;
+
+    var base64Url = token.split(".")[1];
+    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    var jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
+    console.log(email)
+    console.log(password)
+
     try {
-      const response = await axios.get("http://localhost:3001/usuarios", {
-        params: {
+      const response = await axios.post("http://localhost:8080/api/v1/auth/authenticate",
+        {
           email: email,
-          senha: password
+          password: password
         }
-      });
+      );
 
       console.log("Resposta da API:", response);
 
-      if (response.data && response.data.length > 0) {
+      localStorage.setItem("token", response.data.access_token); // Armazena o token no localStorage
+      localStorage.setItem(
+        "email",
+        getPayloadFromToken(response.data.access_token).sub
+      );
+      navigate("/crudMaterial");
+
+      /*if (response.data && response.data.length > 0) {
         const usuario = response.data[0];
-        if (usuario.email === email && usuario.senha === password) {
+        if (usuario.email === email && usuario.password === password) {
           navigate("/crudMaterial");
         } else {
           setError("Email ou senha inválidos!");
         }
-      } else {
-        setError("Email ou senha inválidos!");
-      }
+      } 
+      */
+      /*
+            if (response.data ){
+             navigate("/crudMaterial");
+            }
+           
+            
+            else {
+              setError("Email ou senha inválidos!");
+            } */
+
     } catch (err) {
       console.error("Erro na requisição:", err);
       setError("Erro ao tentar fazer login. Tente novamente mais tarde.");
@@ -62,7 +99,7 @@ const Login = () => {
             type="password"
             placeholder="Senha"
             value={password}
-            onChange={(e) => setSenha(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           {error && <p className="error-message">{error}</p>}
           <div className="bx bxs-lock-alt"></div>

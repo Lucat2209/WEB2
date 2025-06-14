@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../../services/api";
+//import api from "../../services/api";
 
 const DataManagement = () => {
   const [data, setData] = useState([]); // Dados da lista
@@ -81,10 +81,10 @@ const DataManagement = () => {
   return (
     <div className="app-container">
       {/* Div para o formulário de cadastro */}
-      <div className="cadastro-container">
+      <div className="input-box">
         <h1>{isEditing ? "Atualizar Categoria" : "Cadastrar Nova Categoria"}</h1>
 
-        <form onSubmit={handleSubmit} className="form-group">
+        <form onSubmit={handleSubmit} className="material">
           <label htmlFor="nome">Nome</label>
           <input
             type="text"
@@ -95,19 +95,17 @@ const DataManagement = () => {
             placeholder="Nome da categoria"
             required
           />
-          
 
-          <label htmlFor="descricao">Descrição</label>
-          <textarea
+
+          <input
+            type="text"
             id="descricao"
             name="descricao"
             value={formData.descricao}
             onChange={handleChange}
             placeholder="Descrição da categoria"
-            required
+            
           />
-          
-
           <button type="submit">{isEditing ? "Atualizar" : "Cadastrar"}</button>
         </form>
       </div>
