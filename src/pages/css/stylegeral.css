@@ -46,7 +46,9 @@
   }
   
   /* Caixa de entrada de texto */
-  .input-box {
+  .input-box,
+  .input-box select
+   {
     position: relative;
     margin-bottom: 20px;
     
@@ -54,7 +56,9 @@
   
   }
   
-  .input-box input {
+  .input-box input,
+  .input-box select
+   {
     width: 50%;
     padding: 12px 15px;
     font-size: 16px;
@@ -66,7 +70,8 @@
   }
 
  
- .quantidade-wrapper input {
+.quantidade-wrapper input,
+.quantidade-wrapper select {
   flex: 1;
   padding: 12px 15px;
   font-size: 16px;
@@ -76,13 +81,16 @@
   
 }
   
-  .input-box input:focus {
+  .input-box input:focus,
+  .input-box select:focus
+   {
     border-color: #4CAF50;
     outline: none;
   }
   
   /* Ícones dentro das caixas de entrada */
-  .input-box i {
+  .input-box i
+   {
     position: absolute;
     left: 10px;
     top: 50%;
@@ -98,8 +106,11 @@
   }
   
   .remember-forgot a {
-    color: #4CAF50;
+    color: #000000;
     text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    
   }
   
   .remember-forgot a:hover {
@@ -155,10 +166,10 @@
     
   }
   
-  label input {
-    margin-right: 8px;
-    
-  }
+  label input,
+  label select {
+  margin-right: 8px;
+}
   
   /* Link para "Cadastre-se" */
   .register-link {
@@ -167,7 +178,7 @@
   }
   
   .register-link a {
-    color: #4CAF50;
+    color: #000000;
     text-decoration: none;
   }
   

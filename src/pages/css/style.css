@@ -59,19 +59,23 @@ img {
 /* Tela de login (fundo e container do login) */
 /* Tela de login (fundo e container do login) */
 
-.login input {
+.login input,
+.login input
+ {
   width: 90%;
   padding: 14px 16px;
   margin-bottom: 18px;
   font-size: 16px;
   border-radius: 10px;
-  border: 1px solid #18bd20;
+  border: 2px solid #18bd20;
   transition: border-color 0.3s ease;
   
 }
 
-.login input:focus {
-  border-color: #4facfe;
+.login input:focus,
+.login select:focus
+ {
+  border-color: #4CAF50;
   outline: none;
 }
 
@@ -111,7 +115,7 @@ img {
 
 /* Formulário de login */
 form {
-  background: #ebebeb;
+  background: #76d176;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 255, 13, 0.1);
@@ -126,14 +130,19 @@ form {
 }
 
 /* Caixa de entrada para o email */
-.input-box {
+.input-box,
+.input-box select
+ {
   position: relative;
   text-align: center;
   
 }
 
-.input-box input {
-  width: 100%;
+.input-box input,
+.input-box select
+
+ {
+  width: 50%;
   padding: 10px;
   border: 2px solid #008000; /* Borda verde */
   border-radius: 5px;
@@ -141,7 +150,10 @@ form {
   box-sizing: border-box;
 }
 
-.input-box input::placeholder {
+
+.input-box input::placeholder,
+.input-box input::placeholder
+ {
   color: #aaaaaa;
   
 }
@@ -189,13 +201,20 @@ button:hover {
 .remember-forgot {
   text-align: center;
   margin-top: 10px;
+  justify-content: center;
+  align-content: center;
   
 }
 
 .remember-forgot a {
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  
 }
+
+
 
 .remember-forgot a:hover {
   text-decoration: underline;
@@ -215,7 +234,7 @@ label {
 }
 
 .register-link a {
-  color: #2E8B57; /* Verde italiano */
+  color: #000000; /* Verde italiano */
   text-decoration: none;
   font-weight: bold;
 }
@@ -369,7 +388,7 @@ ul li {
   background-color: #c0392b;
 }
 
-.material form {
+.material-form {
   background-color: rgb(233, 255, 240);
   justify-content: center;  /* horizontal */
   align-items: center;      /* vertical */
@@ -399,6 +418,9 @@ ul li {
   display: flex;
   justify-content: center;
   align-items: center;
+   background-color: rgb(233, 255, 240);
+  justify-content: center;  /* horizontal */
+  align-items: center;      /* vertical */
 }
 
 .input-error {

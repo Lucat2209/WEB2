@@ -140,22 +140,21 @@ const Material = () => {
 
         <div className="input-box">
           <label>Categoria</label>
+          
           <select
             value={vcategoria}
             onChange={(e) => setCategoria(e.target.value)}
-            style={{
-              padding: '8px',
-              border: '1px solid #ccc',
-              borderRadius: '4px'
-            }}
+            
           >
+            
             <option value="">Selecione uma categoria</option>
             {categorias.map(cat => (
               <option key={cat.id} value={cat.id}>{cat.nome}</option>
             ))}
           </select>
           {erroCategoria && <p style={{ color: 'red' }}>{erroCategoria}</p>}
-        </div>
+          </div>
+        
 
         <div className="input-box">
           <label>Tipo</label>
