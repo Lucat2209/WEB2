@@ -7,10 +7,9 @@
   align-items: center;
   min-height: calc(100vh - 120px); /* Ex: 60px header + 60px footer */
   padding: 40px 20px;
-  margin-top: 60px;  /* Espaço para o header */
   margin-bottom: 60px; /* Espaço para o footer */
-  background-color: #ffffff;
-  box-sizing: border-box;
+  background-color: #68bb5d;
+  height: 00%;
 }
   .main-content_login {
     text-align: center;
@@ -26,11 +25,10 @@
   
   /* Estilo do Formulário */
   .login  {
-    border: solid black;
     width: 100%;
     max-width: 600px;
     padding: 0px;
-    background-color: #ffffff;
+    background-color: #bbf1ab;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import InputMask from "react-input-mask";
+
 
 const Usuario = () => {
   const [vusuarios, setUsuarios] = useState([]);
@@ -126,10 +128,14 @@ const Usuario = () => {
       
 
         <label>Telefone</label>
-        <input type="text" value={vtelefone} onChange={e => setTelefone(e.target.value)} />
+        <InputMask
+        mask={"(99) 9999-9999"}
+         type="text" value={vtelefone} onChange={e => setTelefone(e.target.value)} />
 
         <label>CPF*</label>
-        <input type="text" value={vcpf} onChange={e => setCpf(e.target.value)} required />
+        <InputMask 
+        mask={"999.999.999-99"}
+         type="text" value={vcpf} onChange={e => setCpf(e.target.value)} required />
 
         <button type="submit">Cadastrar Usuário</button>
 

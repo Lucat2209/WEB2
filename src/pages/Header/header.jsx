@@ -19,7 +19,7 @@ function Header(){
                 <span className='separador'>|</span> 
                 <a href='/agendamento' className='abas'>Agendamento</a>
                 <span className='separador'>|</span> 
-                <a href='/login' className='abas'>Login</a>
+                <a href='/login' className='abas'>Logoff</a>
                 <span className='separador'>|</span> 
                
                 </nav>
